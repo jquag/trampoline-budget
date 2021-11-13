@@ -63,7 +63,10 @@
                 if (amount > 0) {
                     const dollar = document.createElement('div');
                     dollar.className = 'dollars'
-                    dollar.append(document.createTextNode('$'));
+                    const dollarSign= document.createElement('div')
+                    dollarSign.append(document.createTextNode('$'));
+                    dollarSign.className = 'dollar-sign';
+                    dollar.append(dollarSign);
                     const amountTxt = document.createElement('div')
                     amountTxt.append(document.createTextNode('$' + amount));
                     amountTxt.className = 'amount-txt';
@@ -101,18 +104,20 @@
     }
 
     .dollars {
-        width: 100px;
-        height: 26px;
+        width: 200px;
+        height: 64px;
         background-color: greenyellow;
         border: 1px solid gray;
-        padding-top: 10px;
-        font-size: 20px;
+        font-size: 34px;
         color: gray;
         position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .under {
-        width: 100px;
+        width: 200px;
         height: 3px;
         background-color: rgb(151, 241, 14);
         border: 1px solid gray;
@@ -122,7 +127,7 @@
         border: 3px solid gray;
         padding: 5px;
         border-top: none;
-        width: 120px;
+        width: 220px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -140,7 +145,14 @@
 
     .amount-txt {
         position: absolute;
-        left: -90px;
-        top: 10px;
+        left: -110px;
+        top: 15px;
+    }
+
+    .dollar-sign {
+        color: rgb(56, 170, 56);
+        border: 4px solid rgb(56, 170, 56);
+        border-radius: 25px;
+        padding: 5px 15px 3px;
     }
 </style>
