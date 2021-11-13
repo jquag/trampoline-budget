@@ -1,0 +1,146 @@
+ <!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    </head>
+    <body>
+        <main class="">
+            <div>
+                <div>
+                    <img id="trampoline" src="trampoline.png" />
+                </div>
+                <div class="center">
+                    <div id="stack">
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <script lang="module">
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyBisyTbPJ0dAEeLnysFkw-QCJXs2B8xibc",
+                authDomain: "trampoline-budget.firebaseapp.com",
+                projectId: "trampoline-budget",
+                storageBucket: "trampoline-budget.appspot.com",
+                messagingSenderId: "519104319256",
+                appId: "1:519104319256:web:f6f9967dc6b19c23a1586d"
+            };
+
+            // Initialize Firebase
+            const app = firebase.initializeApp(firebaseConfig);
+
+            document.addEventListener('readystatechange', (event) => {
+                console.log(`readystate: ${document.readyState}`);
+                if (document.readyState === 'complete') {
+                    init();
+                }
+            });
+
+            function init() {
+                const db = firebase.firestore();
+                const docRef = db.collection("amount").doc("main");
+
+                docRef.get().then(docSnap => {
+                    if (docSnap.exists) {
+                        setupDollars(docSnap.data().amount);
+                    } else {
+                        console.log("NO DATA");
+                    }
+                });
+            }
+
+            function setupDollars(amount) {
+                console.log("amount: ", amount);
+                const stack = document.getElementById('stack');
+                for (let i = 0; i < 350 - amount; i++) {
+                    const empty = document.createElement('div');
+                    empty.className = 'empty'
+                    stack.append(empty);
+                }
+
+                if (amount > 0) {
+                    const dollar = document.createElement('div');
+                    dollar.className = 'dollars'
+                    dollar.append(document.createTextNode('$'));
+                    const amountTxt = document.createElement('div')
+                    amountTxt.append(document.createTextNode('$' + amount));
+                    amountTxt.className = 'amount-txt';
+                    dollar.append(amountTxt);
+                    stack.append(dollar);
+
+                    for (let i = 0; i < amount - 1; i++) {
+                        const under = document.createElement('div');
+                        under.className = 'under'
+                        stack.append(under);
+                    }
+                }
+            }
+        </script>
+    </body>
+</html> 
+
+
+<style>
+    body {
+        background: #f1dde0;
+    }
+    main {
+        display: flex;
+        justify-content: center;
+        font-family: Roboto,sans-serif !important;
+    }
+
+    main>div {
+        text-align: center;
+    }
+
+    img#trampoline {
+        width: 300px;
+    }
+
+    .dollars {
+        width: 100px;
+        height: 26px;
+        background-color: greenyellow;
+        border: 1px solid gray;
+        padding-top: 10px;
+        font-size: 20px;
+        color: gray;
+        position: relative;
+    }
+
+    .under {
+        width: 100px;
+        height: 3px;
+        background-color: rgb(151, 241, 14);
+        border: 1px solid gray;
+    }
+
+    #stack {
+        border: 3px solid gray;
+        padding: 5px;
+        border-top: none;
+        width: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 10px;
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+    }
+
+    .empty {
+        height: 5px;
+    }
+
+    .amount-txt {
+        position: absolute;
+        left: -90px;
+        top: 10px;
+    }
+</style>
