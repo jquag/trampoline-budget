@@ -3,11 +3,12 @@
     <head>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
     </head>
     <body>
         <main class="">
             <div>
-                <div>
+                <div class="trampoline-div">
                     <img id="trampoline" src="trampoline.png" />
                 </div>
                 <div class="center">
@@ -68,7 +69,7 @@
                     dollarSign.className = 'dollar-sign';
                     dollar.append(dollarSign);
                     const amountTxt = document.createElement('div')
-                    amountTxt.append(document.createTextNode('$' + amount));
+                    amountTxt.append(document.createTextNode(amount));
                     amountTxt.className = 'amount-txt';
                     dollar.append(amountTxt);
                     stack.append(dollar);
@@ -145,9 +146,9 @@
 
     .amount-txt {
         position: absolute;
-        left: -150px;
-        top: 0;
-        font-size: 50px;
+        /* left: -100px; */
+        top: -35px;
+        /* font-size: 50px; */
     }
 
     .dollar-sign {
@@ -155,5 +156,8 @@
         border: 4px solid rgb(56, 170, 56);
         border-radius: 30px;
         padding: 3px 10px 2px;
+    }
+    .trampoline-div {
+        margin-bottom: 40px;
     }
 </style>
